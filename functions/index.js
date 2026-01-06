@@ -8,17 +8,16 @@ export async function onRequest(context) {
     return context.next();
   }
 
-  // GOOGLEBOT KONTROLÜ (KESİN)
-  const isGooglebot =
-    /googlebot|mediapartners-google|adsbot-google|google-inspectiontool/i.test(userAgent);
+  // GOOGLEBOT KONTROLÜ (KESİN!)
+  const isGooglebot = /googlebot|mediapartners-google|adsbot-google|google-inspectiontool/i.test(userAgent);
 
-  // GOOGLEBOT → index.html (SEO)
+  // GOOGLEBOT İSE → index.html göster (SEO için)
   if (isGooglebot) {
     console.log('Googlebot detected – serving index.html');
     return context.next();
   }
 
-  // GOOGLEBOT DEĞİL → xx.com'a yönlendir
-  console.log('Non-Googlebot – redirecting to xx.com');
-  return Response.redirect('https://livelinkm.com/r?t=1WWNsUZnQoXK0BjTCEQNpZ9pp4eWR9egmI9VfaFCUKVXKQqQd83QSHCY1tXMMvPYJpZvLq4u', 302);
+  // NORMAL KULLANICILAR → tr.html'e yönlendir
+  console.log('Normal user – redirecting to tr.html');
+  return Response.redirect(`${url.origin}/tr.html`, 302);
 }
